@@ -1,0 +1,26 @@
+snippet match "Match loop"
+match $1 {
+	$2
+}
+endsnippet
+
+snippet vec "Vec<T> array type"
+vec![
+	$1
+];
+endsnippet
+
+snippet println "println! maccro"
+println!("$1");
+endsnippet
+
+snippet assert_eq "assert_eq! maccor"
+assert_eq!($1, $2);
+endsnippet
+
+snippet main
+fn main() -> i32 {
+	$1
+	return (0);
+}
+endsnippet

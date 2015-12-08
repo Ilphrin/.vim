@@ -1,0 +1,23 @@
+snippet begin
+\begin{$1}
+$2
+\end{$1}
+endsnippet
+
+snippet maketitle
+\title{$1}
+\author{$2}
+\date{`date +"%d %B %Y"`}
+
+\maketitle
+$3
+endsnippet
+
+snippet français
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+$0
+endsnippet
+
