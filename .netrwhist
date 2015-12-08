@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/bonhem_l/rendu/projets_perso/conf'
-let g:netrw_dirhist_2='/home/bonhem_l/rendu/projets_perso'
-let g:netrw_dirhist_3='/home/bonhem_l/rendu/projets_perso/crypto'
