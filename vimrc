@@ -59,7 +59,7 @@ Plug '~/.vim/bundle/vim-kivy'
 Plug 'https://github.com/euclio/vim-markdown-composer.git'
 Plug 'critiqjo/lldb.nvim'
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-Plug 'vim-utils/vim-man'
+Plug 'http://github.com/vim-utils/vim-man.git'
 call plug#end()
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"

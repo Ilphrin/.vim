@@ -4,4 +4,5 @@ Il faut commencer par linker le vimrc en init.vim, puis le dossier ~/.vim en ~/.
 
 Ensuite pour la comnpatibilité des plugins Python, il faut faire:
 
+sudo aptitude install python3-dev
 sudo pip{2,3} install neovim
