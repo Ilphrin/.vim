@@ -1,0 +1,11 @@
+snippet bg "background parameters" bA
+background$1`!p snip.rv = complete(t[1], ['-attachment', '-color', 'image', 'position', 'repeat'])`:
+endsnippet
+
+snippet bd "border" bA
+border$1`!p snip.rv = complete(t[1], ['-right', '-right', '-left', '-top'])`:
+endsnippet
+
+snippet display "display..." bA
+display: $1`!p snip.rv = complete(t[1], ['flex', 'block', 'inline', 'inline-block', 'none'])`;
+endsnippet

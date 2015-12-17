@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/usr/share/vim'
+let g:netrw_dirhist_2='/home/kevin/Documents/projets/r-d-monitoring/JS'
+let g:netrw_dirhist_3='/home/kevin/Documents/projets/r-d-monitoring/JS/Chart'
+let g:netrw_dirhist_4='/home/kevin/Documents/projets/uspto.gov/uspto/bundles'
+let g:netrw_dirhist_5='/home/kevin/Documents/Phaser/breakout'

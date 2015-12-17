@@ -1,0 +1,7 @@
+== INSTALLTATION DE NEOVIM ==
+
+Il faut commencer par linker le vimrc en init.vim, puis le dossier ~/.vim en ~/.config/nvim
+
+Ensuite pour la comnpatibilité des plugins Python, il faut faire:
+
+sudo pip{2,3} install neovim
