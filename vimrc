@@ -1,28 +1,67 @@
 " General
 set nocompatible
+" For some reason, gnome-terminal says xterm-color even though it supports
+" xterm-256color.
+let $TERM = "xterm-256color"
 set t_Co=256
-set clipboard=unnamedplus "Transforme le clipboard vim pour utiliser le clipboard système"
+set clipboard+=unnamedplus "Transforme le clipboard vim pour utiliser le clipboard système"
 set noswapfile
 set nobackup
 set autoindent
 set smartindent
 set lazyredraw " do not redraw while running macros
-set linespace=0 " don't insert any extra pixel lines betweens rows
+set linespace=10 " don't insert any extra pixel lines betweens rows
+set number
 set numberwidth=5 " We are good up to 99999 lines
 set foldenable
 set foldmethod=indent
-set foldlevel=100
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set foldlevel=30
 if !exists("*SimpleFoldText")
   function SimpleFoldText()
     return getline(v:foldstart).' '
   endfunction
 endif
 set foldtext=SimpleFoldText() " Custom fold text function (cleaner than default)
-set ttymouse=xterm2 " makes it work in everything
+"set ttymouse=xterm2 " makes it work in everything
 
-call pathogen#infect()
-call pathogen#helptags()
-runtime! config/**/*.vim
+"call pathogen#infect()
+"call pathogen#helptags()
+"runtime! config/**/*.vim
+
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+    UpdateRemotePlugins
+  endif
+endfunction
+
+call plug#begin('~/.vim/bundle')
+Plug 'https://github.com/Valloric/YouCompleteMe', {'do': './install.py'}
+Plug 'https://github.com/chrisbra/Colorizer'
+Plug 'https://github.com/Raimondi/delimitMate'
+Plug 'https://github.com/sjl/gundo.vim'
+Plug 'https://github.com/vim-scripts/mru.vim'
+Plug 'https://github.com/scrooloose/nerdcommenter.git'
+Plug 'https://github.com/scrooloose/nerdtree.git', {'on': 'NERDTreeToggle'}
+Plug 'https://github.com/wting/rust.vim.git'
+Plug 'https://github.com/scrooloose/syntastic'
+Plug 'https://github.com/majutsushi/tagbar'
+Plug 'http://github.com/SirVer/ultisnips'
+Plug 'https://github.com/bling/vim-airline'
+Plug 'https://github.com/Ilphrin/vim-cargo.git'
+Plug '~/.vim/bundle/vim-flake8-master'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/elzr/vim-json.git'
+Plug '~/.vim/bundle/vim-kivy'
+Plug 'https://github.com/euclio/vim-markdown-composer.git'
+Plug 'critiqjo/lldb.nvim'
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+Plug 'vim-utils/vim-man'
+call plug#end()
+
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_min_num_of_chars_for_completion = 2
 
@@ -36,6 +75,9 @@ nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
 inoremap <Up> <Nop>
 inoremap <Down> <Nop>
+
+"Meme comportement que Sublime Text
+inoremap <C-x> <Esc>ddi
 
 "Permet de naviguer entre les onglets"
 nnoremap <Right> gt
@@ -127,5 +169,6 @@ if !exists(":TexPDFShow")
   command TexPDFShow execute "!pdflatex ".bufname('')." && mv -b ".StripExtension(expand("%:t")).".* ".expand("%:p:h")." && evince ".StripExtension(bufname('')).".pdf"
 endif
 "End
+
 
 colorscheme mustang_vim_colorscheme_by_hcalves
