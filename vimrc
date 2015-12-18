@@ -79,6 +79,9 @@ inoremap <Down> <Nop>
 "Meme comportement que Sublime Text
 inoremap <C-x> <Esc>ddi
 
+"Pour pouvoir sauvegarder rapidement
+inoremap <C-s> <Esc>:w<CR>a
+
 "Permet de naviguer entre les onglets"
 nnoremap <Right> gt
 nnoremap <Left> gT
