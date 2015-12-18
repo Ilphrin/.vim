@@ -14,7 +14,7 @@ set linespace=10 " don't insert any extra pixel lines betweens rows
 set number
 set numberwidth=5 " We are good up to 99999 lines
 set foldenable
-set foldmethod=indent
+set foldmethod=manual
 set expandtab
 set shiftwidth=2
 set softtabstop=2

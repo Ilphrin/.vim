@@ -1,4 +1,4 @@
-snippet script
+nippet script
 <script src="$1" charset="utf-8"></script>
 endsnippet
 
@@ -19,8 +19,8 @@ snippet doctype "Basic html content" b
 endsnippet
 
 snippet charset "Charest UTF8" A
-  <meta charset="utf-8" />
-  $1
+<meta charset="utf-8" />
+$1
 endsnippet
 
 global !p
@@ -28,16 +28,36 @@ def notUniqueTag(value):
   if value not in ["br", "link", "meta", "img", "hr"]:
     return 1
   return 0
+
+def needNewLine(value):
+  if value in ["body", "html", "head", "p", "section", "article", "style", "aside"]:
+    return 1
+  return 0
+
+def makeBegTag(a, b, indent):
+  if needNewLine(a):
+    return indent + "<" + a + b + ">\n" + indent + "  "
+  else:
+    return "<" + a + b + ">"
+
+def makeEndTag(a, indent):
+  if needNewLine(a):
+    return "\n" + indent + "<" + a + "/>"
+  else:
+    return "<" + a + "/>"
 endglobal
 
-snippet "<([a-z]+)(.*)>" "Tag" rA
+snippet "(.*)<([a-z]+)(.*)>" "Tag" rA
 `!p
-if not snip.c and notUniqueTag(match.group(1)) and not match.group(2) == "/":
-  snip.rv = "<" + match.group(1) + match.group(2) + ">"
+a = match.group(2)
+b = match.group(3)
+indent = match.group(1)
+if not snip.c and notUniqueTag(a) and not b == "/":
+  snip.rv = makeBegTag(a, b, indent)
 elif not snip.c:
-  snip.rv = "<" + match.group(1) + match.group(2) + ">"
+  snip.rv = makeBegTag(a, b, indent)
 `$1`!p
-if not snip.c and notUniqueTag(match.group(1)) and not match.group(2) == "/":
-  snip.rv = "</" + match.group(1) + ">"
+if not snip.c and notUniqueTag(a) and not b == "/":
+  snip.rv = makeEndTag(a, indent)
 `
 endsnippet
