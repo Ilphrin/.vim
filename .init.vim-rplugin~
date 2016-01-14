@@ -1,16 +1,8 @@
 " python3 plugins
-call remote#host#RegisterPlugin('python3', '/home/kevin/.vim/bundle/vim-markdown-composer/rplugin/python3/markdown_composer.py', [
-      \ {'sync': 1, 'name': 'FileType', 'type': 'autocmd', 'opts': {'pattern': 'markdown'}},
-      \ {'sync': 0, 'name': 'ComposerOpen', 'type': 'command', 'opts': {}},
-      \ {'sync': 0, 'name': 'ComposerPort', 'type': 'command', 'opts': {}},
-      \ {'sync': 0, 'name': 'ComposerStart', 'type': 'command', 'opts': {}},
-      \ {'sync': 0, 'name': 'CursorHold,CursorHoldI,CursorMoved,CursorMovedI', 'type': 'autocmd', 'opts': {'pattern': '*.md,*.mkd,*.markdown'}},
-      \ {'sync': 1, 'name': 'ComposerUpdate', 'type': 'command', 'opts': {}},
-     \ ])
 
 
 " python plugins
-call remote#host#RegisterPlugin('python', '/home/kevin/.vim/bundle/lldb.nvim/rplugin/python/lldb_nvim.py', [
+call remote#host#RegisterPlugin('python', '/home/pellet_k/.vim/bundle/lldb.nvim/rplugin/python/lldb_nvim.py', [
      \ ])
 
 

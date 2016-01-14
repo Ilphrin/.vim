@@ -1,0 +1,26 @@
+snippet inc "#include <$1>" bA
+#include <$1>
+endsnippet
+
+snippet main "main"
+int main(int ac, char **av)
+{
+  $1
+
+  return (0);
+}
+endsnippet
+
+snippet for "for loop" A
+for (${1:i} = 0; $1 < $2; $1++)
+{
+  $3
+}
+endsnippet
+
+snippet while "while loop" A
+while (${1:condition})
+{
+  $2
+}
+endsnippet

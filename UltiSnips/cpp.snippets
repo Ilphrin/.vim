@@ -13,7 +13,7 @@ $1
 endsnippet
 
 snippet main "Basic main" m
-int main(int argc, char** argv)
+int main(int ac, char** av)
 {
 	$1
 
@@ -62,4 +62,19 @@ endsnippet
 
 snippet tp "template <typename ..> (template)"
 template <typename ${1:_InputIter}>
+endsnippet
+
+snippet class "class" bA
+class $1
+{
+  public:
+    $1($2);
+    $1($1 const&);
+    $1& operator=($1 const&);
+    $3
+    ~$1();
+    $4
+  protected:
+    $4
+};
 endsnippet

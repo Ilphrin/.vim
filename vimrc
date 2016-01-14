@@ -27,10 +27,6 @@ endif
 set foldtext=SimpleFoldText() " Custom fold text function (cleaner than default)
 "set ttymouse=xterm2 " makes it work in everything
 
-"call pathogen#infect()
-"call pathogen#helptags()
-"runtime! config/**/*.vim
-
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     !cargo build --release
@@ -42,34 +38,36 @@ call plug#begin('~/.vim/bundle')
 Plug 'https://github.com/Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'https://github.com/chrisbra/Colorizer'
 Plug 'https://github.com/Raimondi/delimitMate'
-Plug 'https://github.com/sjl/gundo.vim'
 Plug 'https://github.com/vim-scripts/mru.vim'
 Plug 'https://github.com/scrooloose/nerdcommenter.git'
 Plug 'https://github.com/scrooloose/nerdtree.git', {'on': 'NERDTreeToggle'}
-Plug 'https://github.com/wting/rust.vim.git'
+Plug 'https://github.com/wting/rust.vim.git', { 'for': 'rust' }
 Plug 'https://github.com/scrooloose/syntastic'
 Plug 'https://github.com/majutsushi/tagbar'
 Plug 'http://github.com/SirVer/ultisnips'
 Plug 'https://github.com/bling/vim-airline'
-Plug 'https://github.com/Ilphrin/vim-cargo.git'
-Plug '~/.vim/bundle/vim-flake8-master'
-Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/Ilphrin/vim-cargo.git', { 'for': 'rust' }
 Plug 'https://github.com/elzr/vim-json.git'
-Plug '~/.vim/bundle/vim-kivy'
 Plug 'https://github.com/euclio/vim-markdown-composer.git'
 Plug 'critiqjo/lldb.nvim'
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-Plug 'http://github.com/vim-utils/vim-man.git'
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
+Plug 'jelera/vim-javascript-syntax', { 'for': ['js', 'json'] }
+Plug 'Shutnik/jshint2.vim', { 'for': ['js', 'json'] }
+Plug 'gilgigilgil/anderson.vim'
+Plug 'blueyed/vim-diminactive'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_filetype_blacklist = {}
 
 "Garde un dossier pour enregistrer les undo"
+
 set undodir=~/.vim/undodir
 set undofile
-set undolevels=1000
-set undoreload=30000
+set undolevels=500
+set undoreload=20000
 
 nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
@@ -124,14 +122,13 @@ let g:ycm_show_diagnostics_ui = 0 "Pour ne pas faire entrer en collision les che
 "que celui de syntastic"
 highlight SyntasticErrorSign guifg=white guibg=red
 highlight SyntasticWarningLine guifg=white guibg=orange
-highlight SyntasticErrorLine guibg=red
+highlight SyntasticErrorLine guibg=black
 highlight SyntasticWarningLine guibg=orange
 
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit = "vertical"
-
 
 "Vim-airline configuration
 set laststatus=2 "Permet d'afficher le statusbar meme lorsqu'on a pas split Vim
@@ -145,19 +142,12 @@ let g:airline_section_z='Line:%l Col:%c'
 let g:colorizer_auto_filetype='css,html'
 let g:colorizer_skip_comments = 1
 
-"indentLine
-"let g:indentLine_color_term = 0
-"let g:indentLine_char = '¦'
-
 "Gundo configuration
 let g:gundo_close_on_revert = 1
 let g:gundo_auto_preview = 1
 
-"Beginning of the code managing automatic opening of MRU
-if bufname('') == ''
-  autocmd VimEnter * MRU
-endif
-"End of the code managing automatic opening of MRU
+" markdown-composer for neovim
+let g:markdown_composer_browser = "/home/pellet_k/Téléchargements/firefox/firefox"
 
 if !exists("*StripExtension")
   function StripExtension(file)
@@ -173,5 +163,17 @@ if !exists(":TexPDFShow")
 endif
 "End
 
+function! s:insert_gates()
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o# define " . gatename
+  execute "normal! o"
+  execute "normal! Go#endif /* " . gatename . " */"
+  normal! kk
+endfunction
+autocmd BufNewFile *.{h,hpp,hh} call <SID>insert_gates()
 
+" Colors and highlighting
 colorscheme mustang_vim_colorscheme_by_hcalves
+
+hi ColorColumn ctermbg=0
