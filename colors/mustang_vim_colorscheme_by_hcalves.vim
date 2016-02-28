@@ -1,6 +1,7 @@
 " Maintainer:	Henrique C. Alves (hcarvalhoalves@gmail.com)
+" Updated By: Kevin "Ilphrin" Pellet (ilphrin@autistici.org)
 " Version:      1.0
-" Last Change:	September 25 2008
+" Last Change:	January 17 2016
 
 set background=dark
 
@@ -40,16 +41,16 @@ hi Todo 		guifg=#8f8f8f gui=italic ctermfg=245
 hi Boolean      guifg=#b1d631 gui=none ctermfg=148
 hi String 		guifg=#b1d631 gui=italic ctermfg=148
 hi Identifier 	guifg=#b1d631 gui=none ctermfg=148
-hi Function 	guifg=#ffffff gui=bold ctermfg=255
-hi Type 		guifg=#7e8aa2 gui=none ctermfg=103
+hi Function 	guifg=#E8E4C3 gui=bold ctermfg=36
+hi Type 		guifg=#7e8aa2 gui=none ctermfg=32
 hi Statement 	guifg=#7e8aa2 gui=none ctermfg=103
 hi Keyword		guifg=#ff9800 gui=none ctermfg=208
 hi Constant 	guifg=#ff9800 gui=none  ctermfg=208
 hi Number		guifg=#ff9800 gui=none ctermfg=208
 hi Special		guifg=#ff9800 gui=none ctermfg=208
-hi PreProc 		guifg=#faf4c6 gui=none ctermfg=230
+hi PreProc 		guifg=#faf4c6 gui=none ctermfg=230 cterm=bold
 hi Todo         guifg=#000000 guibg=#e6ea50 gui=italic
+hi Operator     guifg=#ffffff guibg=#000000 ctermfg=229 cterm=bold
 
 " Code-specific colors
 hi pythonOperator guifg=#7e8aa2 gui=none ctermfg=103
-

@@ -1,10 +1,63 @@
 snippet log
 console.log($1);
 endsnippet
+
+snippet function
+function ($1) {
+  $2
+}
+endsnippet
+
+snippet trace
+console.trace();$1
+endsnippet
+
+snippet warn
+console.warn($1);
+endsnippet
+
 snippet use-strict "use-strict javascript code" A
 (function() {
   'use-strict';
 
   $1
 }());
+endsnippet
+
+snippet if
+if ($1) {
+  $2
+}
+endsnippet
+
+snippet for
+for (var $1 = 0; $1 < $2; $1++) {
+  $3
+}
+endsnippet
+
+# Phaser.js snippets
+
+snippet overlap "Phaser physics.arcade.overlap"
+this.physics.arcade.overlap($1);
+endsnippet
+
+snippet moveToObject "Phaser physics.arcade.moveToObject"
+this.physics.arcade.moveToObject($1, ${2:this.player}, $3);
+endsnippet
+
+snippet moveToXY "Phaser physics.arcade.moveToXY"
+this.physics.arcade.moveToXY($1);
+endsnippet
+
+snippet image "Phaser load.image"
+this.load.image('$1', '$2');
+endsnippet
+
+snippet spritesheet "Phaser load.spritesheet"
+this.load.spritesheet('$1', '$2', $3, $4);
+endsnippet
+
+snippet audio "Phaser load.audio"
+this.load.audio('$1', ['$2', '$3']);
 endsnippet

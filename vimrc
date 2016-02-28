@@ -19,6 +19,9 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set foldlevel=30
+set cursorline
+set hlsearch
+set incsearch
 if !exists("*SimpleFoldText")
   function SimpleFoldText()
     return getline(v:foldstart).' '
@@ -35,7 +38,7 @@ function! BuildComposer(info)
 endfunction
 
 call plug#begin('~/.vim/bundle')
-Plug 'https://github.com/Valloric/YouCompleteMe', {'do': './install.py'}
+Plug 'https://github.com/Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
 Plug 'https://github.com/chrisbra/Colorizer'
 Plug 'https://github.com/Raimondi/delimitMate'
 Plug 'https://github.com/vim-scripts/mru.vim'
@@ -50,12 +53,26 @@ Plug 'https://github.com/Ilphrin/vim-cargo.git', { 'for': 'rust' }
 Plug 'https://github.com/elzr/vim-json.git'
 Plug 'https://github.com/euclio/vim-markdown-composer.git'
 Plug 'critiqjo/lldb.nvim'
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
+Plug 'euclio/vmm-markdown-composer', { 'do': function('BuildComposer'), 'for': 'markdown' }
 Plug 'jelera/vim-javascript-syntax', { 'for': ['js', 'json'] }
-Plug 'Shutnik/jshint2.vim', { 'for': ['js', 'json'] }
 Plug 'gilgigilgil/anderson.vim'
-Plug 'blueyed/vim-diminactive'
+"Plug 'blueyed/vim-diminactive'
 Plug 'tpope/vim-surround'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'sjl/gundo.vim'
+Plug 'Ilphrin/easy-cpp.nvim'
+Plug 'benekastah/neomake'
+Plug 'glts/vim-cottidie'
+Plug 'fflorent/macrobug.vim'
+" For use with jshint, need to install nodejs-legacy, eg: sudo aptitude
+" install nodejs-legacy
+Plug 'kshenoy/vim-signature'
+Plug 'osyo-manga/vim-over'
+Plug 'ternjs/tern_for_vim'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'smancill/conky-syntax.vim'
+Plug 'moll/vim-node'
 call plug#end()
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
@@ -95,6 +112,14 @@ let g:undo_width = 70
 let g:undo_preview_height = 40
 "Replace Tab by Spaces
 map <F2> :retab<CR>
+
+" For lldb-nvim
+nmap <C-b> <Plug>LLBreakSwitch
+cnoreabbrev debug LLmode debug
+cnoreabbrev step LL step
+cnoreabbrev stepi LL stepi
+cnoreabbrev continue LL continue
+
 augroup config
   autocmd! BufWritePost vimrc source %
 augroup END
@@ -133,7 +158,7 @@ let g:UltiSnipsEditSplit = "vertical"
 "Vim-airline configuration
 set laststatus=2 "Permet d'afficher le statusbar meme lorsqu'on a pas split Vim
 let g:airline_powerline_fonts = 1
-let g:airline_theme="papercolor"
+let g:airline_theme="badwolf"
 let g:airline_section_x='%{strftime("%H:%M")}'
 let g:airline_section_y='%{char2nr(getline(".")[col(".")-1])}'
 let g:airline_section_z='Line:%l Col:%c'
@@ -149,13 +174,15 @@ let g:gundo_auto_preview = 1
 " markdown-composer for neovim
 let g:markdown_composer_browser = "/home/pellet_k/Téléchargements/firefox/firefox"
 
+" OverCommandLine overload basic /
+nnoremap / :OverCommandLine<CR>/
+
 if !exists("*StripExtension")
   function StripExtension(file)
     return join(split(a:file, '\.')[0:-2], '\.')
   endfunction
 endif
 
-"Beginning of code for managing LaTeX files
 "This command is used to create files with pdflatex, move the files in the
 "same directory as the working file's, and run evince on the new pdf created
 if !exists(":TexPDFShow")
@@ -173,7 +200,26 @@ function! s:insert_gates()
 endfunction
 autocmd BufNewFile *.{h,hpp,hh} call <SID>insert_gates()
 
+" Neomake for javascript with jshint
+let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    \ }
+let g:neomake_javascript_enabled_makers = ['jshint']
+
 " Colors and highlighting
 colorscheme mustang_vim_colorscheme_by_hcalves
 
-hi ColorColumn ctermbg=0
+hi ColorColumn ctermbg=238
+hi CursorLine cterm=NONE
+
+"AUGROUP AND AUTOCOMMAND
+
+" Correction abbreviation for cpp files
+
+if "cpp" == "cpp"
+  ab Virtual virtual
+  ab virtuql virtual
+  ab voif void
+  ab namespac namespace
+endif

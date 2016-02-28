@@ -30,7 +30,7 @@ def notUniqueTag(value):
   return 0
 
 def needNewLine(value):
-  if value in ["body", "html", "head", "p", "section", "article", "style", "aside", "div"]:
+  if value in ["body", "html", "head", "p", "section", "article", "style", "aside", "div", "header", "nav"]:
     return 1
   return 0
 
@@ -38,13 +38,13 @@ def makeBegTag(a, b, indent):
   if needNewLine(a):
     return indent + "<" + a + b + ">\n" + indent + "  "
   else:
-    return "<" + a + b + ">"
+    return indent + "<" + a + b + ">"
 
 def makeEndTag(a, indent):
   if needNewLine(a):
-    return "\n" + indent + "<" + a + "/>"
+    return "\n" + indent + "</" + a + ">"
   else:
-    return "<" + a + "/>"
+    return "</" + a + ">"
 endglobal
 
 snippet "(.*)<([a-z]+)(.*)>" "Tag" rA
