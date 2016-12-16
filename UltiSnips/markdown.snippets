@@ -7,17 +7,6 @@ def complete(t, opts):
 	return '(' + '|'.join(opts) + ')'
 endglobal
 
-snippet fmatter
-----
-title: ${1:Meet Ultisnips}
-date: ${2:`date +%Y/%m/%d`}
-flags: $3
----
-
-# $1
-$0
-endsnippet
-
 snippet post
 ---
 layout: $1`!p snip.rv = complete(t[1], ['post_kevin', 'index'])`
@@ -40,3 +29,4 @@ $2
 
 {% endhighlight %}
 endsnippet
+

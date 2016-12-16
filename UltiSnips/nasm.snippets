@@ -1,0 +1,18 @@
+snippet got "extern _GLOBAL_OFFSET_TABLE"
+extern _GLOBAL_OFFSET_TABLE_
+endsnippet
+
+snippet fcnt "global $1:function"
+global $1:function
+
+$1:
+  push	rbp
+  mov	rbp, rsp
+  $2
+
+end:
+  mov	rsp, rbp
+  pop	rbp
+
+  ret
+endsnippet

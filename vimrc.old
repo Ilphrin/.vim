@@ -1,0 +1,278 @@
+" General
+  set t_Co=256
+  set clipboard+=unnamedplus "Transforme le clipboard vim pour utiliser le clipboard système"
+  set noswapfile
+  set nobackup
+  set autoindent
+  set smartindent
+  set lazyredraw " do not redraw while running macros
+  set linespace=10 " don't insert any extra pixel lines betweens rows
+  set number
+  set numberwidth=5 " We are good up to 99999 lines
+  set foldenable
+  set foldmethod=indent
+  set expandtab
+  set shiftwidth=2
+  set softtabstop=2
+  set foldlevel=30
+  set cursorline
+  set hlsearch
+  set incsearch
+  set colorcolumn=80
+  set cmdheight=3
+  set scrolloff=7
+  set completeopt=longest,menuone
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
+
+call plug#begin('~/.vim/bundle')
+  "======= PLUGINS ======
+  Plug 'https://github.com/chrisbra/Colorizer'
+  Plug 'https://github.com/Raimondi/delimitMate'
+  Plug 'https://github.com/vim-scripts/mru.vim'
+  Plug 'https://github.com/scrooloose/nerdcommenter.git'
+  Plug 'https://github.com/wting/rust.vim.git', { 'for': 'rust' }
+  Plug 'https://github.com/majutsushi/tagbar'
+  Plug 'http://github.com/SirVer/ultisnips'
+  Plug 'https://github.com/bling/vim-airline'
+  Plug 'https://github.com/Ilphrin/vim-cargo.git', { 'for': 'rust' }
+  Plug 'https://github.com/elzr/vim-json.git'
+  Plug 'jelera/vim-javascript-syntax', { 'for': ['js', 'json'] }
+  Plug 'gilgigilgil/anderson.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'sjl/gundo.vim'
+  Plug 'benekastah/neomake'
+  Plug 'glts/vim-cottidie'
+  Plug 'fflorent/macrobug.vim', { 'on' : 'Macrobug', 'do': function('DoRemote')}
+  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote')}
+  Plug 'helino/vim-whitespace'
+  Plug 'gorodinskiy/vim-coloresque'
+  " For use with jshint, need to install nodejs-legacy, eg: sudo aptitude
+  " install nodejs-legacy
+  Plug 'kshenoy/vim-signature'
+  Plug 'osyo-manga/vim-over'
+  Plug 'ternjs/tern_for_vim'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'tpope/vim-fugitive'
+  Plug 'smancill/conky-syntax.vim'
+  Plug 'moll/vim-node'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'Yggdroot/indentLine'
+  Plug 'vim-scripts/Conque-GDB'
+  Plug 'scrooloose/nerdtree'
+  Plug 'jistr/vim-nerdtree-tabs'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'Shougo/neopairs.vim'
+  Plug 'Shougo/vimshell.vim'
+  Plug 'dorcy-v/cpp_accessor', { 'for': 'cpp', 'do': function('DoRemote')}
+  Plug 'justinmk/vim-ipmotion'
+  Plug 'Shougo/echodoc.vim'
+  "Plug 'LeBarbu/vim-epitech'
+  " Plugins for nyaovim
+  if exists('g:nyaovim_version')
+    Plug 'rhysd/nyaovim-popup-tooltip'
+    Plug 'rhysd/nyaovim-tree-view'
+  endif
+call plug#end()
+
+"Garde un dossier pour enregistrer les undo"
+  set undodir=~/.vim/undodir
+  set undofile
+  set undolevels=500
+  set undoreload=20000
+
+" Remappings
+  nnoremap <Up> <Nop>
+  nnoremap <Down> <Nop>
+  inoremap <Up> <Nop>
+  inoremap <Down> <Nop>
+
+  "Permet de naviguer entre les onglets"
+  nnoremap <Right> gt
+  nnoremap <Left> gT
+  "Sert pour les Tags dans le code"
+  nmap <F8> :TagbarToggle<CR>
+  "Plus rapide quand on est en qwerty
+  nnoremap ; :
+  "Used to remap F4 for gundo"
+  map <F4> :GundoToggle<CR>
+  " For lldb-nvim
+  nmap <C-b> <Plug>LLBreakSwitch
+  cnoreabbrev debug LLmode debug
+  cnoreabbrev step LL step
+  cnoreabbrev stepi LL stepi
+  cnoreabbrev continue LL continue
+
+" GUndo
+  let g:undo_width = 70
+  let g:undo_preview_height = 40
+
+
+" To use gf as <C-W> <C-F> to open file in a new tab
+nnoremap gf <C-W><C-F>
+
+"DelimitMate configuration
+  let g:delimitMate_expand_cr = 2
+  let g:delimitMate_jump_expansion = 1
+
+"MRU configuration
+  let MRU_Window_Height = 15
+  let MRU_Max_Menu_Entries = 15
+
+"UltiSnips configuration
+  let g:UltiSnipsExpandTrigger="<c-l>"
+  let g:UltiSnipsJumpForwardTrigger="<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+  let g:UltiSnipsEditSplit = "vertical"
+
+"Vim-airline configuration
+  set laststatus=2 "Permet d'afficher le statusbar meme lorsqu'on a pas split Vim
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme="badwolf"
+  let g:airline_section_y='%{char2nr(getline(".")[col(".")-1])}'
+  let g:airline_section_z='Line:%l Col:%c'
+
+"Colorizer
+  let g:colorizer_auto_filetype='css,html'
+  let g:colorizer_skip_comments = 1
+
+"Gundo configuration
+  let g:gundo_close_on_revert = 1
+  let g:gundo_auto_preview = 1
+
+" OverCommandLine overload basic /
+nnoremap / :OverCommandLine<CR>/
+
+if !exists("*StripExtension")
+  function StripExtension(file)
+    return join(split(a:file, '\.')[0:-2], '\.')
+  endfunction
+endif
+
+"This command is used to create files with pdflatex, move the files in the
+"same directory as the working file's, and run evince on the new pdf created
+if !exists(":TexPDFShow")
+  command TexPDFShow execute "!pdflatex ".bufname('')." && mv -b ".StripExtension(expand("%:t")).".* ".expand("%:p:h")." && evince ".StripExtension(bufname('')).".pdf"
+endif
+"End
+
+function! s:insert_gates()
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o# define " . gatename
+  execute "normal! o"
+  execute "normal! Go#endif /* " . gatename . " */"
+  normal! kk
+endfunction
+
+" Neomake
+  let g:neomake_javascript_jshint_maker = {
+      \ 'args': ['--verbose'],
+      \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+      \ }
+  let g:neomake_javascript_enabled_makers = ['jshint']
+  let g:neomake_rust_cargo_maker = {
+        \'args': ['build'],
+        \'append_file': 0,
+        \}
+  let g:neomake_rust_enabled_makers = ['cargo']
+
+" Neoinclude with Deoplete
+  let g:neoinclude#paths = {'cpp' : '/usr/include/c++/',
+      \'c': '/usr/include/'}
+
+" Use Deoplete.
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#file#enable_buffer_path = 1
+  let g:deoplete#enable_camel_case = 1
+  let g:deoplete#enable_refresh_always = 1
+  let g:deoplete#delimiters = ['/', '.', '::', '#', ',', '\', ':', '-', '_']
+  let g:deoplete#auto_complete_start_length = 1
+  "let g:deoplete#sources = { '_': ['buffer', 'tag', 'file', 'member', 'omni', 'dictionary'] }
+
+" Epitech config
+let g:epi_login = "pellet_k"
+
+" IndentLine config
+  let g:indentLine_color_gui = '#A4E57E'
+  let g:indentLine_color_term = 240
+  let g:indentLine_char = '│'
+  let g:indentLine_enabled = 1
+
+" NERDTreeTabs/NERDTree auto
+  let g:nerdtree_tabs_open_on_console_startup = 1
+  let g:nerdtree_tabs_autofind = 1
+  let NERDTreeShowBookmarks=1
+  let NERDTreeChDirMode=2
+  let NERDTreeWinSize=42
+
+" vim-ipmotion
+  let g:ip_skipfold=1
+
+" echodoc
+  let g:echodoc_enable_at_startup = 1
+
+" tagbar
+  let g:tagbar_show_linenumbers=1
+  let g:tagbar_singleclick=1
+
+" To search gf in a path
+let &path="src/,include/,../src/,../include/,../,./"
+
+"augroup, autocommand, autocmd, and that kind of automated fuckin stuff
+  autocmd! BufWritePost,BufRead * Neomake!
+  autocmd! BufWritePost,BufRead *.rs Neomake
+  autocmd BufNewFile *.{h,hpp,hh} call <SID>insert_gates()
+  autocmd BufRead,BufNewFile *.h set filetype=c.cpp
+  autocmd BufRead * normal zM
+  augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile, *.h, *.c set filetype=c.doxygen
+    autocmd CursorMoved,CursorMovedI, * call tagbar#currenttag('%s','')
+  augroup END
+  augroup config
+    autocmd! BufWritePost vimrc source %
+  augroup END
+
+"Correction abbreviation for cpp files
+  "if &ft == "cpp"
+    "ab Virtual virtual
+    "ab virtuql virtual
+    "ab voif void
+    "ab namespac namespace
+  "endif
+
+" extend vim objects
+  let pairs = { ":" : ":",
+    \"." : ".",
+    \"/" : "/",
+    \"\\" : "\\",
+    \"," : ",",
+    \"=" : "="}
+
+for [key, value] in items(pairs)
+  exe "nnoremap ci".key." T".key"ct".value
+  exe "nnoremap ca".key." T".key"cf".value
+  exe "nnoremap vi".key." T".key"vt".value
+  exe "nnoremap va".key." T".key"vf".value
+  exe "nnoremap di".key." T".key"dt".value
+  exe "nnoremap da".key." T".key"df".value
+  exe "nnoremap yi".key." T".key"yt".value
+  exe "nnoremap ya".key." T".key"yf".value
+endfor
+
+" :terminal configuration
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-]> <C-\><C-n>
+
+" Colors and highlighting
+  colorscheme mustang_vim_colorscheme_by_hcalves
+  hi CursorLine cterm=NONE ctermbg=236
+  hi ColorColumn ctermbg=4
+  hi TermCursor guifg=cyan ctermfg=cyan
+  hi Pmenu ctermbg=4

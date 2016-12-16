@@ -23,3 +23,15 @@ fn main() {
 	$1
 }
 endsnippet
+
+snippet ext "extern crate X;"
+extern crate $1;
+endsnippet
+
+snippet test "mod tests"
+#[cfg(test)]
+mod test {
+  #[test]
+  $1
+}
+endsnippet

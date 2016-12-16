@@ -1,4 +1,4 @@
-snippet include
+snippet inc "include" bA
 #include $1
 endsnippet
 
@@ -11,11 +11,11 @@ snippet string
 endsnippet
 
 snippet main "Basic main" m
-int main()
+int main(int ac, char **av)
 {
-	$1
+  $1
 
-	return (0);
+  return (0);
 }
 endsnippet
 
@@ -59,7 +59,7 @@ endsnippet
 snippet for "For loop..."
 for ($1 = 0; $1 < $2; $1++)
 {
-
+  $3
 }
 endsnippet
 
@@ -77,17 +77,20 @@ template<typename $1>
 $0
 endsnippet
 
-
 snippet header "header epitech"
 /*
 ** `!v expand('%:t')` for `!v expand('%:p:h:t')` in `!v expand('%:p:h')`
 **
-** Made by Kevin
+** Made by Kevin Pellet
 ** Login <kevin.pellet@epitech.eu>>
 **
-** Started on `!v strftime("%a %b %d %H:%M:%S")` Kevin
-** Last Update `!v strftime("%a %b %d %H:%M:%S")` Kevin
+** Started on `!v strftime("%a %b %d %H:%M:%S")` Kevin Pellet
+** Last Update `!v strftime("%a %b %d %H:%M:%S")` Kevin Pellet
 */
+
 $1
 endsnippet
 
+snippet string "std::string"
+std::string $1
+endsnippet
